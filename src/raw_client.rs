@@ -377,6 +377,8 @@ impl RawClient<ElectrumSslStream> {
         );
         if validate_domain {
             socket_addrs.domain().ok_or(Error::MissingDomain)?;
+        } else {
+            builder.set_verify(SslVerifyMode::NONE);
         }
         match timeout {
             Some(timeout) => {
